@@ -5,6 +5,7 @@ import {MapsService} from "../../services/maps.service";
 import {FindPark} from "../../../../core/api-types/map";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {AsyncPipe} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'sp-maps-container',
@@ -17,6 +18,7 @@ import {AsyncPipe} from "@angular/common";
 export class MapsContainerComponent {
   private readonly mapsService = inject(MapsService)
   private readonly destroyRef = inject(DestroyRef)
+  private readonly router = inject(Router)
 
   public $parks = this.mapsService.$parks
   public userPosition = signal<google.maps.LatLngLiteral | null>(null)
@@ -24,6 +26,7 @@ export class MapsContainerComponent {
   public $drawingEnabled = this.mapsService.$drawingEnabled
   public drawing$ = this.mapsService.drawing$
   public $isDisabled = this.mapsService.$createParkDisabled
+  public $position = this.mapsService.$position
 
   constructor() {
     this.getUserLocation()
@@ -41,11 +44,11 @@ export class MapsContainerComponent {
   }
 
   onFindPark() {
-    const userPosition = this.userPosition()
-    if(userPosition) {
+    const position = this.$position()? this.$position() : this.userPosition()
+    if(position) {
       const data: FindPark = {
-        longitude: userPosition.lng,
-        latitude: userPosition.lat,
+        longitude: position.lng,
+        latitude: position.lat,
         radius: 500,
         order_by: 'cheapest'
       }
@@ -55,6 +58,10 @@ export class MapsContainerComponent {
     }
   }
 
+  onPositionSet(data: google.maps.LatLngLiteral) {
+    this.mapsService.$position.set(data)
+  }
+
   polygonPathsSet(data: google.maps.LatLngLiteral[]) {
     this.mapsService.onDraw(data)
     if(data.length > 3 && data.length < 6) {
@@ -62,5 +69,8 @@ export class MapsContainerComponent {
     } else {
       this.mapsService.$createParkDisabled.set(true)
     }
+  }
+  onRedirectToReview(id: number) {
+    this.router.navigate(['/park-review', id])
   }
 }

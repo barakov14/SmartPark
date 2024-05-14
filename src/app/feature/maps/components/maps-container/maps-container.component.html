@@ -4,6 +4,9 @@
     [$parks]="$parks()"
     [$drawingEnabled]="$drawingEnabled()"
     (polygonPathSet)="polygonPathsSet($event)"
+    (redirectToReview)="onRedirectToReview($event)"
+    (positionSet)="onPositionSet($event)"
+    [position]="$position()"
   ></sp-maps>
   <maps-actions
     (findPark)="onFindPark()"

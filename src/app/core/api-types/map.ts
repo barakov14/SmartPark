@@ -26,6 +26,7 @@ export interface Points {
 
 export interface PolygonPaths {
   path: google.maps.LatLngLiteral[];
+  id: number
 }
 
 export interface FindParkResponse {

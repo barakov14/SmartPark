@@ -14,6 +14,7 @@ export class MapsService {
   public $drawingEnabled = signal<boolean>(false)
   public drawing$ = new BehaviorSubject<google.maps.LatLngLiteral[]>([])
   public $createParkDisabled = signal<boolean>(true)
+  public $position = signal<google.maps.LatLngLiteral | null>(null)
 
 
   public findPark(data: FindPark) {
@@ -25,9 +26,8 @@ export class MapsService {
           v.points.forEach((point) => {
             updatedData.push({ lat: point.latitude, lng: point.longitude });
           });
-
           this.$parks.update((polygonPaths: PolygonPaths[]) => {
-            return [...polygonPaths, { path: updatedData }];
+            return [...polygonPaths, { path: updatedData, id: v.id }];
           });
         });
       }),

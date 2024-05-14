@@ -6,12 +6,16 @@
     height="400px"
     (mapClick)="onMapClick($event)"
   >
-    <map-marker
-      [position]="userPosition"
-      title="User Position"
-      class="custom-marker"
-    >
-    </map-marker>
+    @if(position(); as position) {
+      <map-marker
+        [position]="position"
+      ></map-marker>
+    } @else {
+      <map-marker
+        [position]="userPosition"
+      >
+      </map-marker>
+    }
 
     @if(drawing(); as drawing) {
       <map-polygon [paths]="drawing"></map-polygon>
@@ -19,7 +23,7 @@
 
     @if($parks(); as parks) {
       @for(park of parks; track park) {
-        <map-polygon [paths]="park.path"></map-polygon>
+        <map-polygon [paths]="park.path" (polygonClick)="onPolygonClick(park.id)"></map-polygon>
       }
     }
 

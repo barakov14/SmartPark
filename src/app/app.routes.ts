@@ -30,4 +30,11 @@ export const routes: Routes = [
         c => c.ProfileComponent,
       ),
   },
+  {
+    path: 'park-review/:id',
+    loadComponent: () =>
+      import('./pages/park-review/components/park-review-container/park-review-container.component').then(
+        c => c.ParkReviewContainerComponent
+      )
+  }
 ];
