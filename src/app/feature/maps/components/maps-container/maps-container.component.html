@@ -1,0 +1,13 @@
+<div class="h-screen">
+  <sp-maps
+    [$userPosition]="userPosition()"
+    [$parks]="$parks()"
+    [$drawingEnabled]="$drawingEnabled()"
+    (polygonPathSet)="polygonPathsSet($event)"
+  ></sp-maps>
+  <maps-actions
+    (findPark)="onFindPark()"
+    [visibleCreateParkButton]="$visibleCreateParkButton()"
+    [isDisabled]="$isDisabled()"
+  ></maps-actions>
+</div>

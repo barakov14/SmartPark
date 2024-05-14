@@ -1,0 +1,11 @@
+<div class="wrapper theme min-h-screen">
+  <ui-header [start]="start"></ui-header>
+  <mat-drawer-container>
+    <mat-drawer mode="over" #start>
+      <ui-navbar class="w-full" [start]="start"></ui-navbar>
+    </mat-drawer>
+    <mat-drawer-content class="content-container">
+      <sp-maps-container></sp-maps-container>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

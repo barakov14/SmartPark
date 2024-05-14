@@ -1,0 +1,15 @@
+<div class="h-screen">
+  <div class="ml-2 mt-2">
+    <button mat-fab routerLink="/my">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+  <div class="p-4 text-2xl">
+    <h1>Profile</h1>
+    <ng-container *ngIf="currentUser$ | async as currentUser">
+      <p>{{ currentUser.username }}</p>
+      <p>{{ currentUser.role }}</p>
+      <p>{{ currentUser.email }}</p>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<mat-nav-list class="w-full">
+  <div class="flex flex-col w-full">
+    <mat-list-item
+      [routerLink]="['/profile']"
+      (click)="start.close()"
+      class="w-full"
+      routerLinkActive="active-link"
+    >
+      <mat-icon matListItemIcon>person</mat-icon>
+      <span routerLinkActive="active-link">Profile</span>
+    </mat-list-item>
+    <mat-list-item
+      class="w-full"
+      (click)="toggleDropdown()"
+      routerLinkActive="active-link"
+    >
+      <mat-icon matListItemIcon *ngIf="!showDropdown; else backDropdown">
+        expand_more
+      </mat-icon>
+      <ng-template #backDropdown>
+        <mat-icon matListItemIcon>chevron_right</mat-icon>
+      </ng-template>
+      <span>Добавить парковку</span>
+    </mat-list-item>
+    <div *ngIf="showDropdown" class="w-full">
+      <mat-nav-list>
+        <mat-list-item class="w-full" [routerLink]="['/project']">
+          <span routerLinkActive="active-link">Я владелец</span>
+        </mat-list-item>
+        <mat-list-item class="w-full" (click)="onToggleParkCreating()">
+          <span routerLinkActive="active-link">Предложение</span>
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+    <div class="flex-grow"></div>
+    <mat-list-item
+      class="w-full"
+      routerLinkActive="active-link"
+      (click)="onLogout()"
+    >
+      <mat-icon matListItemIcon>input</mat-icon>
+      <span routerLinkActive="active-link">Выйти</span>
+    </mat-list-item>
+  </div>
+</mat-nav-list>

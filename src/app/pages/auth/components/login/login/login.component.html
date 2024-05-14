@@ -1,0 +1,44 @@
+<div class="container">
+  <mat-card class="login-card">
+    <mat-card-title class="text-center">
+      <h1 class="text-4xl font-bold">Login</h1>
+      <p class="text-sm">love your park.</p>
+    </mat-card-title>
+    <mat-card-content class="mt-4">
+      <div class="bg-red-500 text-white p-2 mb-2" *ngIf="validationErrors">
+        {{ validationErrors }}
+      </div>
+      <form class="login-form" [formGroup]="formGroup" (ngSubmit)="onLogin()">
+        <mat-form-field class="input-field">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          class="submit-btn"
+          [disabled]="isLoading()"
+        >
+          LOGIN
+        </button>
+        <a
+          routerLink="/register"
+          class="text-center mt-2 hover:opacity-70 transition-opacity"
+          >Don't have an account?</a
+        >
+      </form>
+      <div class="flex justify-center">
+        <p
+          class="text-center mt-2 cursor-pointer no-underline text-white hover:opacity-70"
+          routerLink="/login"
+        >
+          Don't have an account?
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

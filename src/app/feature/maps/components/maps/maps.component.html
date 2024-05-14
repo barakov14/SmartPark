@@ -1,0 +1,27 @@
+@if($userPosition(); as userPosition) {
+  <google-map
+    [center]="userPosition"
+    [zoom]="10"
+    width="100%"
+    height="400px"
+    (mapClick)="onMapClick($event)"
+  >
+    <map-marker
+      [position]="userPosition"
+      title="User Position"
+      class="custom-marker"
+    >
+    </map-marker>
+
+    @if(drawing(); as drawing) {
+      <map-polygon [paths]="drawing"></map-polygon>
+    }
+
+    @if($parks(); as parks) {
+      @for(park of parks; track park) {
+        <map-polygon [paths]="park.path"></map-polygon>
+      }
+    }
+
+  </google-map>
+}
